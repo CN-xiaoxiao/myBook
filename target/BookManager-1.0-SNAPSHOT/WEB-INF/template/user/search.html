@@ -2,12 +2,13 @@
 <!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
 <!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
 <!--[if !IE]><!-->
-<html lang="zxx">
+<html lang="zxx" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <!--<![endif]-->
 <!-- Begin Head -->
 
 <head>
-    <title>图书借阅 - 图书管理系统</title>
+    <title>图书查询 - 图书管理系统</title>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta name="description" content="">
@@ -16,9 +17,14 @@
     <meta name="MobileOptimized" content="320">
     <!--Start Style -->
     <link rel="stylesheet" type="text/css" th:href="@{/static/css/fonts.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/css/datatables.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/static/css/bootstrap.min.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/static/css/font-awesome.min.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/static/css/icofont.min.css}">
+    <link rel="stylesheet" th:href="@{/static/css/swiper.min.css}">
+    <!--Page Specific -->
+    <link rel="stylesheet" type="text/css" th:href="@{/static/css/nice-select.css}">
+    <!--Custom Style -->
     <link rel="stylesheet" type="text/css" th:href="@{/static/css/style.css}">
     <link rel="stylesheet" id="theme-change" type="text/css" href="">
 </head>
@@ -40,7 +46,7 @@
                 <div class="colxl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                     <div class="page-title-wrapper">
                         <div class="page-title-box ad-title-box-use">
-                            <h4 class="page-title">图书借阅</h4>
+                            <h4 class="page-title">图书查询</h4>
                         </div>
                     </div>
                 </div>
@@ -51,33 +57,27 @@
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                     <div class="card table-card">
                         <div class="card-header pb-0">
-                            <h4>请选择您要借阅的图书</h4>
+                            <h4>图书查询列表</h4>
                         </div>
                         <div class="card-body">
-                            <div class="chart-holder">
-                                <div class="table-responsive">
-                                    <table class="table table-styled mb-0">
-                                        <thead>
-                                        <tr>
-                                            <th>#ID</th>
-                                            <th>标题</th>
-                                            <th>简介</th>
-                                            <th>价格</th>
-<!--                                            <th>借阅</th>-->
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr th:each="book : ${bookList}">
-                                            <td th:text="${book.getBid()}">1</td>
-                                            <td th:text="${book.getTitle()}">书籍名称</td>
-                                            <td th:text="${book.getDesc()}">书籍简介</td>
-                                            <td th:text="${book.getPrice()}">价格</td>
-<!--                                            <td th:text="${book.getState()}">借阅状态</td>-->
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
+                            <table id="example" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
+                                <thead>
+                                <tr>
+                                    <th>书名</th>
+                                    <th>简介</th>
+                                    <th>id</th>
+                                    <th>价格</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="even" th:each="book : ${bookList}">
+                                    <td class="sorting_1 dtr-control" th:text="${book.getTitle()}">书籍名称</td>
+                                    <td th:text="${book.getDesc()}">书籍简介</td>
+                                    <td th:text="${book.getBid()}">ID</td>
+                                    <td th:text="${book.getPrice()}">价格</td>
+                                </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
@@ -89,13 +89,19 @@
 <!-- Script Start -->
 <script th:src="@{/static/js/jquery.min.js}"></script>
 <script th:src="@{/static/js/popper.min.js}"></script>
+<script th:src="@{/static/js/datatables.min.js}"></script>
+<script th:src="@{/static/js/dataTables.responsive.min.js}"></script>
 <script th:src="@{/static/js/bootstrap.min.js}"></script>
 <script th:src="@{/static/js/swiper.min.js}"></script>
-<script th:src="@{/static/js/apexcharts.min.js}"></script>
-<script th:src="@{/static/js/control-chart-apexcharts.js}"></script>
 <!-- Page Specific -->
 <script th:src="@{/static/js/nice-select.min.js}"></script>
 <!-- Custom Script -->
 <script th:src="@{/static/js/custom.js}"></script>
+<script>
+    $(document).ready(function() {
+        $('#example').DataTable();
+    } );
+</script>
 </body>
+
 </html>

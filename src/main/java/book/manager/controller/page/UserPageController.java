@@ -38,7 +38,7 @@ public class UserPageController {
     public String search(HttpSession session, Model model){
         AuthUser user = service.findUser(session);
         model.addAttribute("user", user);
-        model.addAttribute("bookList", bookService.getAllBorrowedBookById(user.getId()));
+        model.addAttribute("bookList", bookService.getAllBook());
         return "/user/search";
     }
 }
