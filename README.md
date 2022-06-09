@@ -1,7 +1,6 @@
 # myBook
 A library management system.
 
-### README
 #### 技术栈
 	SSM
 	Spring Security
